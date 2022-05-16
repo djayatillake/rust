@@ -2,16 +2,12 @@
 // to enable stricter warnings.
 #![allow(unused)]
 
-
-
 pub fn production_rate_per_hour(speed: u8) -> f64 {
-    let unadjusted_rate = (221 * speed as u32) as f64;
-    if speed < 5 {
-        unadjusted_rate
-    } else if speed < 9 {
-        unadjusted_rate * 0.9
-    } else {
-        unadjusted_rate * 0.77
+    221.0 * (speed as f64) * match speed {
+        0 => 0.0,
+        1..=4 => 1.0,
+        5..=8 => 0.9,
+        9..=u8::MAX => 0.77,
     }
 }
 
